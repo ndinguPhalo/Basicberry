@@ -12,7 +12,7 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.jcraft.jsch.SftpException;
+//import com.jcraft.jsch.SftpException;
 
 
 public class ssh {
@@ -20,7 +20,7 @@ public class ssh {
     Session session;
     JSch jsch = new JSch();
 
-    public void StartConnection() throws Exception{
+    public void StartConnection(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String user = "pi";
@@ -54,7 +54,7 @@ public class ssh {
             try{Thread.sleep(1000);}catch(Exception ee){errorMessage = ee.getMessage();}
             channel.disconnect();
         }catch(Exception e){
-
+            errorMessage = e.getMessage();
         }
     }
 
