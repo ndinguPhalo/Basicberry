@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            prepArray();
             sshc.StartConnection();
         } catch (Exception e) {
             ErrorMessage = sshc.getError();
@@ -42,8 +41,14 @@ public class MainActivity extends AppCompatActivity {
 //        String pat = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vula/data.csv";
 //        Toast.makeText(context,pat, Toast.LENGTH_SHORT).show();
         try {
+            sshc.StartConnection();
+            long startTime = System.currentTimeMillis();
             sshc.executeFTP();
             prepArray();
+            long endTime = System.currentTimeMillis();
+            long duration = (endTime - startTime);
+            mytextview = (TextView) findViewById(R.id.speedTxt2);
+            mytextview.setText(""+duration);
         } catch (Exception e) {
             mytextview = (TextView) findViewById(R.id.ErrorTxt);
             mytextview.setText(ErrorMessage);

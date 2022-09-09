@@ -25,7 +25,7 @@ public class ssh {
         StrictMode.setThreadPolicy(policy);
         String user = "pi";
         String password = "pi";
-        String host = "192.168.1.66"; //43.132";
+        String host = "192.168.1.60"; //43.132";
         int port=22;
 //        TextView txt = findViewById(R.id.textView);
         try {
