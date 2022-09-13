@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> myList;
     TextView mytextview;
     String ErrorMessage;
+    ImageView myImg;
     ssh sshc = new ssh();
 
     @Override
@@ -59,7 +61,15 @@ public class MainActivity extends AppCompatActivity {
             mytextview = (TextView) findViewById(R.id.speedTxt2);
             mytextview.setText(""+duration);
             mytextview = (TextView) findViewById(R.id.tempText);
-            mytextview.setText("Temperature: "+myList.get(10));
+            double tempVal = Double.parseDouble(myList.get(10).substring(1,myList.get(10).length()-2));
+            mytextview.setText("Temperature: "+ myList.get(10));//myList.get(10));
+            myImg = (ImageView) findViewById(R.id.tempImg);
+            if (tempVal < 25){
+                myImg.setImageResource(R.drawable.cold);
+            }else{
+                myImg.setImageResource(R.drawable.sunny);
+            }
+
         } catch (Exception e) {
             mytextview = (TextView) findViewById(R.id.ErrorTxt);
             ErrorMessage = sshc.getError();
