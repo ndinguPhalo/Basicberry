@@ -1,6 +1,8 @@
 package com.mthpha010.basicberry;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         sshc.Shutdown();
     }
 
+    @SuppressLint("SetTextI18n")
     public void UpdateTemp(View v){
 //        Context context = getApplicationContext();
 //        String pat = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vula/data.csv";
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             sshc.StartConnection();
             long startTime = System.currentTimeMillis();
+            sshc.senseAgain();
             sshc.executeFTP();
             prepArray();
             long endTime = System.currentTimeMillis();

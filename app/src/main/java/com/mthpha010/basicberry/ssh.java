@@ -59,7 +59,15 @@ public class ssh {
     }
 
     public void senseAgain(){
-
+        try {
+            ChannelExec channel = (ChannelExec) session.openChannel("exec");
+            channel.connect();
+            channel.setCommand("python3 mthpha010/EEE3097S/Project/ICM20948.py >> mthpha010/EEE3097S/Project/IMUdata.csv");
+            try{Thread.sleep(1000);}catch(Exception ee){errorMessage = ee.getMessage();}
+            channel.disconnect();
+        }catch(Exception e){
+            errorMessage = e.getMessage();
+        }
     }
 
     public void executeFTP(){
