@@ -2,6 +2,8 @@ package com.mthpha010.basicberry;
 
 import android.os.Environment;
 import android.os.StrictMode;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.File;
@@ -61,9 +63,39 @@ public class ssh {
     public void senseAgain(){
         try {
             ChannelExec channel = (ChannelExec) session.openChannel("exec");
-            channel.connect();
             channel.setCommand("python3 mthpha010/EEE3097S/Project/ICM20948.py >> mthpha010/EEE3097S/Project/IMUdata.csv");
-            try{Thread.sleep(1000);}catch(Exception ee){errorMessage = ee.getMessage();}
+            ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+            ByteArrayOutputStream errorBuffer = new ByteArrayOutputStream();
+
+            InputStream in = channel.getInputStream();
+            InputStream err = channel.getExtInputStream();
+
+            channel.connect();
+
+            byte[] tmp = new byte[1024];
+            while (true) {
+                while (in.available() > 0) {
+                    int i = in.read(tmp, 0, 1024);
+                    if (i < 0) break;
+                    outputBuffer.write(tmp, 0, i);
+                }
+                while (err.available() > 0) {
+                    int i = err.read(tmp, 0, 1024);
+                    if (i < 0) break;
+                    errorBuffer.write(tmp, 0, i);
+                }
+                if (channel.isClosed()) {
+                    if ((in.available() > 0) || (err.available() > 0)) continue;
+                    System.out.println("exit-status: " + channel.getExitStatus());
+                    break;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception ee) {
+                    errorMessage = ee.getMessage();
+                }
+            }
+            errorMessage = outputBuffer.toString();
             channel.disconnect();
         }catch(Exception e){
             errorMessage = e.getMessage();

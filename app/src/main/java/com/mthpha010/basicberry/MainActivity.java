@@ -45,22 +45,28 @@ public class MainActivity extends AppCompatActivity {
 //        Toast.makeText(context,pat, Toast.LENGTH_SHORT).show();
         try {
             sshc.StartConnection();
-            long startTime = System.currentTimeMillis();
             sshc.senseAgain();
+            mytextview = (TextView) findViewById(R.id.ErrorTxt);
+            ErrorMessage = sshc.getError();
+            mytextview.setText(ErrorMessage);
+            sshc.StartConnection();
+            long startTime = System.currentTimeMillis();
             sshc.executeFTP();
             prepArray();
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime);
             mytextview = (TextView) findViewById(R.id.speedTxt2);
             mytextview.setText(""+duration);
+            mytextview = (TextView) findViewById(R.id.tempText);
+            mytextview.setText("Temperature: "+myList.get(10));
         } catch (Exception e) {
             mytextview = (TextView) findViewById(R.id.ErrorTxt);
+            ErrorMessage = sshc.getError();
             mytextview.setText(ErrorMessage);
         }
 //      CharSequence text = myList;
 //      int duration = Toast.LENGTH_SHORT;
-        mytextview = (TextView) findViewById(R.id.tempText);
+
 //      setContentView(R.layout.activity_main);
-        mytextview.setText("Temperature: "+myList.get(10));
     }
 }
