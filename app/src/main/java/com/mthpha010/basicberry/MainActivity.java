@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ShutdownPi(View v){
+        sshc.StartConnection();
         sshc.Shutdown();
     }
 
