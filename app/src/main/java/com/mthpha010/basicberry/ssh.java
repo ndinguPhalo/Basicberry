@@ -51,8 +51,8 @@ public class ssh {
     public void Shutdown(){
         try {
             ChannelExec channel = (ChannelExec) session.openChannel("exec");
-            channel.connect();
             channel.setCommand("sudo shutdown now");
+            channel.connect();
             try{Thread.sleep(1000);}catch(Exception ee){errorMessage = ee.getMessage();}
             channel.disconnect();
         }catch(Exception e){
@@ -86,7 +86,7 @@ public class ssh {
                 }
                 if (channel.isClosed()) {
                     if ((in.available() > 0) || (err.available() > 0)) continue;
-                    System.out.println("exit-status: " + channel.getExitStatus());
+                    //System.out.println("exit-status: " + channel.getExitStatus());
                     break;
                 }
                 try {
