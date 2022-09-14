@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             double tempVal = Double.parseDouble(myList.get(10).substring(1,myList.get(10).length()-2));
             mytextview.setText("Temperature: "+ myList.get(10));//myList.get(10));
             myImg = (ImageView) findViewById(R.id.tempImg);
-            if (tempVal < 25){
+            if (tempVal < 20){
                 myImg.setImageResource(R.drawable.cold);
             }else{
                 myImg.setImageResource(R.drawable.sunny);
