@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
             sshc.StartConnection();
             long startTime = System.currentTimeMillis();
             sshc.executeFTP();
-            prepArray();
             long endTime = System.currentTimeMillis();
+            prepArray();
             long duration = (endTime - startTime);
             mytextview = (TextView) findViewById(R.id.speedTxt2);
             mytextview.setText(""+duration);
