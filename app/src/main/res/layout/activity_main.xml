@@ -51,12 +51,27 @@
         android:layout_marginTop="10dp"
         android:onClick="UpdateTemp"
         android:text="Update Temp"
-        app:layout_constraintDimensionRatio="1:0.25"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.25"
+        app:layout_constraintEnd_toEndOf="@id/guidebtnH2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/guidebtnH"
+        app:layout_constraintTop_toBottomOf="@+id/btn1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:onClick="setHost"
+        android:text="Set new host"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.25"
         app:layout_constraintEnd_toEndOf="@id/guidebtnH2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/guidebtnH"
-        app:layout_constraintTop_toBottomOf="@+id/btn1"
+        app:layout_constraintTop_toBottomOf="@+id/btn2"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView

@@ -3,8 +3,11 @@ package com.mthpha010.basicberry;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.IOException;
@@ -14,7 +17,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> myList;
     TextView mytextview;
-    String ErrorMessage;
+    String ErrorMessage, host;
     ImageView myImg;
     ssh sshc = new ssh();
 
@@ -39,6 +42,30 @@ public class MainActivity extends AppCompatActivity {
     public void ShutdownPi(View v){
         sshc.StartConnection();
         sshc.Shutdown();
+    }
+
+    public void setHost(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Set Host");
+
+        final View setHost = getLayoutInflater().inflate(R.layout.host_dialog,null);
+        builder.setView(setHost);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // send data from the
+                // AlertDialog to the Activity
+                EditText editText = setHost.findViewById(R.id.host);
+                host = editText.toString();
+            }
+        });
+
+        // create and show
+        // the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     @SuppressLint("SetTextI18n")
