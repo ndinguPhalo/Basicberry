@@ -21,14 +21,13 @@ public class ssh {
     public String errorMessage = "";
     Session session;
     JSch jsch = new JSch();
-    String host;
 
-    public void StartConnection(){
+    public void StartConnection(String host){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String user = "pi";
         String password = "pi";
-        host = "192.168.1.60"; //43.132";
+        //host = "192.168.1.60"; //43.132";
         int port=22;
 //        TextView txt = findViewById(R.id.textView);
         try {

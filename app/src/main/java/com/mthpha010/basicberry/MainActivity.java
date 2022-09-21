@@ -24,9 +24,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        host = "192.168.1.59";
         setContentView(R.layout.activity_main);
         try {
-            sshc.StartConnection();
+            sshc.StartConnection(host);
         } catch (Exception e) {
             ErrorMessage = sshc.getError();
             mytextview = (TextView) findViewById(R.id.ErrorTxt);
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ShutdownPi(View v){
-        sshc.StartConnection();
+        sshc.StartConnection(host);
         sshc.Shutdown();
     }
 
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 // send data from the
                 // AlertDialog to the Activity
                 EditText editText = setHost.findViewById(R.id.host);
-                host = editText.toString();
+                host = editText.getText().toString();
             }
         });
 
@@ -74,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
 //        String pat = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vula/data.csv";
 //        Toast.makeText(context,pat, Toast.LENGTH_SHORT).show();
         try {
-            sshc.StartConnection();
+            sshc.StartConnection(host);
             sshc.senseAgain();
             mytextview = (TextView) findViewById(R.id.ErrorTxt);
             ErrorMessage = sshc.getError();
             mytextview.setText(ErrorMessage);
-            sshc.StartConnection();
+            sshc.StartConnection(host);
             long startTime = System.currentTimeMillis();
             sshc.executeFTP();
             long endTime = System.currentTimeMillis();
