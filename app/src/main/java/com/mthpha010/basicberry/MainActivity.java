@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     String ErrorMessage, host;
     ImageView myImg;
     ssh sshc = new ssh();
+    csv csvFile = new csv();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prepArray() throws IOException {
-        csv csvFile = new csv();
         myList = csvFile.readInitial();
     }
 
@@ -75,32 +75,39 @@ public class MainActivity extends AppCompatActivity {
 //        String pat = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vula/data.csv";
 //        Toast.makeText(context,pat, Toast.LENGTH_SHORT).show();
         try {
+            long tstartTime = System.currentTimeMillis();
             sshc.StartConnection(host);
             sshc.senseAgain();
             mytextview = (TextView) findViewById(R.id.ErrorTxt);
             ErrorMessage = sshc.getError();
             mytextview.setText(ErrorMessage);
             sshc.StartConnection(host);
+
             long startTime = System.currentTimeMillis();
             sshc.executeFTP();
             long endTime = System.currentTimeMillis();
+
             prepArray();
+
             long duration = (endTime - startTime);
+            long tendTime = System.currentTimeMillis();
+            long tduration = (tendTime - tstartTime);
             mytextview = (TextView) findViewById(R.id.speedTxt2);
+            //mytextview.setText(tduration+" "+duration);
             mytextview.setText(""+duration);
             mytextview = (TextView) findViewById(R.id.tempText);
-            double tempVal = Double.parseDouble(myList.get(10).substring(1,myList.get(10).length()-2));
-            mytextview.setText("Temperature: "+ myList.get(10));//myList.get(10));
+
+            double tempVal = Double.parseDouble(myList.get(1).substring(1,myList.get(1).length()-2));
+            mytextview.setText("Temperature: "+ myList.get(1));//myList.get(10));
             myImg = (ImageView) findViewById(R.id.tempImg);
             if (tempVal < 20){
                 myImg.setImageResource(R.drawable.cold);
             }else{
                 myImg.setImageResource(R.drawable.sunny);
             }
-
         } catch (Exception e) {
             mytextview = (TextView) findViewById(R.id.ErrorTxt);
-            ErrorMessage = sshc.getError();
+            ErrorMessage = sshc.getError()+" "+csvFile.getErr() +" "+ e.getMessage();
             mytextview.setText(ErrorMessage);
         }
 //      CharSequence text = myList;

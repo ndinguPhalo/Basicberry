@@ -12,24 +12,25 @@ import java.util.ArrayList;
 
 public class csv extends AppCompatActivity{
     ArrayList<String> data = new ArrayList<String>();
+    public String errorMessage = "";
 
-    public csv() throws FileNotFoundException, IOException {
+    public String getErr(){
+        return errorMessage;
     }
 
     public ArrayList<String> readInitial(){
-        File csvfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +"Vula/data.csv" );
+        File csvf = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +"data.csv" );
         try {
             //getExternalStorageDirectory() + "/data.csv");
-            CSVReader reader = new CSVReader(new FileReader(csvfile.getAbsolutePath()));
+            CSVReader reader = new CSVReader(new FileReader(csvf));
             String[] nextLine;
-            while ((nextLine = reader.readNext()) != null) {
-                // nextLine[] is an array of values from the line
-                // System.out.println(nextLine[0] + nextLine[1] + "etc...");
+            while ((nextLine = reader.readNext())!= null) {
                 data.add(nextLine[12]);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            errorMessage = e.getMessage();
         }
+
         return data;
     }
 }

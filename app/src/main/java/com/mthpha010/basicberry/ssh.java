@@ -63,7 +63,7 @@ public class ssh {
     public void senseAgain(){
         try {
             ChannelExec channel = (ChannelExec) session.openChannel("exec");
-            channel.setCommand("python3 mthpha010/EEE3097S/Project/ICM20948.py >> mthpha010/EEE3097S/Project/IMUdata.csv");
+            channel.setCommand("python3 mthpha010/EEE3097S/Project/ICM20948.py > mthpha010/EEE3097S/Project/IMUdata.csv");
             ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
             ByteArrayOutputStream errorBuffer = new ByteArrayOutputStream();
 
@@ -110,7 +110,7 @@ public class ssh {
 
             try{
                 ftransfer.cd("mthpha010/EEE3097S/Project/");
-                try (FileOutputStream out = new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"Vula/data.csv")) {
+                try (FileOutputStream out = new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"data.csv")) {
                     try (InputStream in = ftransfer.get("IMUdata.csv")) {
                         // read from in, write to out
                         byte[] buffer = new byte[1024];
