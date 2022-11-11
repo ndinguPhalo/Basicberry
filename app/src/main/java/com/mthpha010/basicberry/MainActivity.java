@@ -71,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void UpdateTemp(View v){
-//        Context context = getApplicationContext();
-//        String pat = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vula/data.csv";
-//        Toast.makeText(context,pat, Toast.LENGTH_SHORT).show();
         try {
             long tstartTime = System.currentTimeMillis();
             sshc.StartConnection(host);
@@ -110,9 +107,5 @@ public class MainActivity extends AppCompatActivity {
             ErrorMessage = sshc.getError()+" "+csvFile.getErr() +" "+ e.getMessage();
             mytextview.setText(ErrorMessage);
         }
-//      CharSequence text = myList;
-//      int duration = Toast.LENGTH_SHORT;
-
-//      setContentView(R.layout.activity_main);
     }
 }
